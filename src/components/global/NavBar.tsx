@@ -3,8 +3,8 @@ import { LinkComponent } from '../ui/LinkComponent';
 export function NavBar() {
   const links = [
     {
-      name: 'Informacion',
-      href: '/informacion',
+      name: 'Inicio',
+      href: '/',
     },
     {
       name: 'Dashboard',

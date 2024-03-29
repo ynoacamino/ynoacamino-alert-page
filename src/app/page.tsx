@@ -1,7 +1,10 @@
+'use client';
+
 import { WhatsappChat } from '@/components/icons/WhatsappChat';
 import { Presentation } from '@/components/pages/index/Presentation';
 import { Section } from '@/components/pages/index/Section';
 import { Button } from '@/components/ui/button';
+import { signIn } from 'next-auth/react';
 
 export default function Home() {
   return (
@@ -17,7 +20,7 @@ export default function Home() {
         title="Registrate"
         text="Inicia session con tu cuenta de google donde quieres que llegue el correo electronico, tambien puedes registrar un numero de whatsapp"
       >
-        <Button size="lg" className="my-4">
+        <Button size="lg" onClick={() => signIn('google')}>
           Registrate
         </Button>
       </Section>

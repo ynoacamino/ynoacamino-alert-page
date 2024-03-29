@@ -1,5 +1,8 @@
+'use client';
+
 import { BackgroundIndex } from '@/components/icons/BackgroundIndex';
 import { Button } from '@/components/ui/button';
+import { signIn } from 'next-auth/react';
 
 export function Presentation() {
   return (
@@ -12,7 +15,7 @@ export function Presentation() {
           Cuando esten listo el talon de pago se enviara un correo electronico y un mensaje
           de whatsapp :)
         </p>
-        <Button size="lg">
+        <Button size="lg" onClick={() => signIn('google')}>
           Registrate
         </Button>
       </div>

@@ -8,17 +8,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { LinkComponent } from './LinkComponent';
 import { AuthOptions } from './AuthOptions';
+import { Login } from './Login';
 
 export async function Auth() {
   const session = await getServerSession(authConfig);
 
   if (!session) {
     return (
-      <LinkComponent href="/login">
-        Login
-      </LinkComponent>
+      <Login />
     );
   }
 

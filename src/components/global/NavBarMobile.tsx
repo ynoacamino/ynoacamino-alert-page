@@ -12,8 +12,8 @@ import ThemeToggleMobile from '@/components/ui/themeToggleMobile';
 
 const NAVLINKS = [
   {
-    name: 'Informacion',
-    href: '/informacion',
+    name: 'Inicio',
+    href: '/',
   },
   {
     name: 'Dashboard',
