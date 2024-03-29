@@ -5,7 +5,7 @@ import NavBarMobile from './NavBarMobile';
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between h-16 px-4 bg-background text-primary w-full mx-auto max-w-7xl">
+    <header className="flex items-center justify-between h-16 px-4 bg-background text-primary w-full mx-auto max-w-7xl sticky top-0">
       <div className="flex items-center">
         <Link href="/" className="text-xl font-bold">
           @ynoacamino
