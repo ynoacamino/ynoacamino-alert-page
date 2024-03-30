@@ -43,7 +43,12 @@ export default async function DashboardPage() {
         <Table>
           <TableBody>
             {data.map(({ createdAt, id, status }) => {
-              const date = format(createdAt, 'dddd, HH:mm', 'es');
+              const date = format({
+                format: 'dddd, HH:mm',
+                date: createdAt,
+                locale: 'es',
+                tz: 'America/Lima',
+              });
               const dateString = date[0].toUpperCase() + date.slice(1);
               const statusStrings = {
                 [QueryStatus.PENDING]: 'No disponible',
