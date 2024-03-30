@@ -45,6 +45,9 @@ export const metadata: Metadata = {
     title: 'IEEE UNSA | Student Chapter',
   },
   metadataBase: new URL('https://noa-registration-alert.vercel.app/'),
+  other: {
+    'google-site-verification': 'g30ufCNKK71KbPsouFqQiaJDDp7dMHnrahL2HKS6Jow',
+  },
 };
 
 export const fontSans = FontSans({
