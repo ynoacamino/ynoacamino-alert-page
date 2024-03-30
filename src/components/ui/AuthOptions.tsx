@@ -41,7 +41,6 @@ export function AuthOptions({ session }: { session: Session & { user: { service:
       console.error(data.error);
       return;
     }
-    console.log(data);
 
     setActiveEmail(data.active);
   };
