@@ -1,5 +1,5 @@
 import { authConfig } from '@/app/api/auth/[...nextauth]/authConfig';
-import { getServerSession } from 'next-auth';
+import { Session, getServerSession } from 'next-auth';
 import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 
@@ -12,7 +12,7 @@ import { AuthOptions } from './AuthOptions';
 import { Login } from './Login';
 
 export async function Auth() {
-  const session = await getServerSession(authConfig);
+  const session = await getServerSession(authConfig) as Session & { user: { service: any } };
 
   if (!session) {
     return (
@@ -34,7 +34,7 @@ export async function Auth() {
           <ChevronDown className="w-5 h-5" />
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-60">
+      <PopoverContent className="w-72">
         <div className="flex flex-col gap-3 items-center pt-5">
           <Image
             alt="name"
@@ -46,7 +46,7 @@ export async function Auth() {
           <span className="text-lg font-medium text-center">
             Yenaro Joel Noa Camino
           </span>
-          <AuthOptions />
+          <AuthOptions session={session} />
         </div>
 
       </PopoverContent>
