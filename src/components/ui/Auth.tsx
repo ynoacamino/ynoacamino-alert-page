@@ -26,7 +26,7 @@ export async function Auth() {
         <div className="flex gap-3 items-center hover:cursor-pointer">
           <Image
             alt="name"
-            src="https://avatars.githubusercontent.com/u/97652778?v=4"
+            src={session.user.image as string}
             width={40}
             height={40}
             className="rounded-full"
@@ -38,13 +38,13 @@ export async function Auth() {
         <div className="flex flex-col gap-3 items-center pt-5">
           <Image
             alt="name"
-            src="https://avatars.githubusercontent.com/u/97652778?v=4"
+            src={session.user.image as string}
             width={80}
             height={80}
             className="rounded-full"
           />
           <span className="text-lg font-medium text-center">
-            Yenaro Joel Noa Camino
+            {session.user.name}
           </span>
           <AuthOptions session={session} />
         </div>
