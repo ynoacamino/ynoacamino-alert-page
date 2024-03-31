@@ -1,130 +1,49 @@
-import { Query, QueryStatus } from '@/types/query';
-import { format } from '@formkit/tempo';
+/* eslint-disable no-console */
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+'use client';
+
+import { Query } from '@/types/query';
+
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { cn } from '@/lib/utils';
+import { HeaderTable } from '@/components/pages/dashboard/HeaderTable';
+import { FooterTable } from '@/components/pages/dashboard/FooterTable';
+import { useEffect, useState } from 'react';
+import { BodyTable } from '@/components/pages/dashboard/BodyTable';
+import { SkeletonTable } from '@/components/pages/dashboard/SkeletonTable';
 
-export const revalidate = 0;
+export default function DashboardPage() {
+  const [querys, setQuerys] = useState<Query[]>([]);
+  const [info, setInfo] = useState({ total: 0, totalPending: 0, totalTimeOut: 0 });
+  const [loading, setLoading] = useState(true);
 
-const getData = async () => {
-  const response = await fetch('https://noa-registration-alert-production.up.railway.app/query');
-  const data = await response.json();
+  const [skip, setSkip] = useState(0);
 
-  return data as Query[];
-};
+  useEffect(() => {
+    fetch('http://localhost:4000/query/?skip=0')
+      .then((res) => res.json())
+      .then((data) => {
+        setQuerys(data.querys?.reverse());
+        setInfo(data.info);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
-export default async function DashboardPage() {
-  const data = (await getData()).map((d) => ({ ...d, createdAt: new Date(d.createdAt) }));
+  if (loading || !querys.length) {
+    return <SkeletonTable />;
+  }
+
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
-      <Table>
-        <TableHeader className="sticky top-0">
-          <TableRow>
-            <TableHead className="w-[20px]">
-              <div className="w-2 h-7 bg-transparent" />
-            </TableHead>
-            <TableHead className="w-52">Fecha</TableHead>
-            <TableHead className="w-64">Estado</TableHead>
-            <TableHead>Mensaje</TableHead>
-            <TableHead className="text-right text-2xl mr-6">🔎</TableHead>
-          </TableRow>
-        </TableHeader>
-      </Table>
-      <ScrollArea>
-        <Table>
-          <TableBody>
-            {data.map(({ createdAt, id, status }) => {
-              const date = format({
-                format: 'dddd, HH:mm',
-                date: createdAt,
-                locale: 'es',
-                tz: 'America/Lima',
-              });
-              const dateString = date[0].toUpperCase() + date.slice(1);
-              const statusStrings = {
-                [QueryStatus.PENDING]: 'No disponible',
-                [QueryStatus.TIMEOUT]: 'Fallido',
-                [QueryStatus.AVARILABLE]: 'Disponible',
-              };
-
-              const mesageString = {
-                [QueryStatus.PENDING]: 'Aun no esta disponible el talon de pago',
-                [QueryStatus.TIMEOUT]: 'La pagina tarde mucho en responder',
-                [QueryStatus.AVARILABLE]: 'Ya esta disponible el talon de pago',
-              };
-
-              let statusEmoji;
-              if (status === QueryStatus.PENDING) {
-                statusEmoji = '⌛';
-              } else if (status === QueryStatus.TIMEOUT) {
-                statusEmoji = '❌';
-              } else {
-                statusEmoji = '✅';
-              }
-              return (
-                <TableRow key={id}>
-                  <TableCell className="w-[20px]">
-                    <div className={cn('w-2 h-7', {
-                      'bg-yellow-300': status === QueryStatus.PENDING,
-                      'bg-red-500': status === QueryStatus.TIMEOUT,
-                      'bg-green-500': status === QueryStatus.AVARILABLE,
-                    })}
-                    />
-                  </TableCell>
-                  <TableCell className="w-52">
-                    {dateString}
-                  </TableCell>
-                  <TableCell className="w-64">{statusStrings[status]}</TableCell>
-                  <TableCell>{mesageString[status]}</TableCell>
-                  <TableCell className="text-right text-2xl">
-                    {statusEmoji}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+      <HeaderTable />
+      <ScrollArea setQuerys={setQuerys} skip={skip} setSkip={setSkip}>
+        <BodyTable querys={querys} />
       </ScrollArea>
-      <Table>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={4}>Total de peticiones pendientes</TableCell>
-            <TableCell className="text-right flex items-center gap-2 justify-end">
-              {data.filter((d) => d.status === QueryStatus.PENDING).length}
-              <span className=" text-2xl">
-                ⌛
-              </span>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell colSpan={4}>Total de peticiones fallidas</TableCell>
-            <TableCell className="text-right flex items-center gap-2 justify-end">
-              {data.filter((d) => d.status === QueryStatus.TIMEOUT).length}
-              <span className=" text-2xl">
-                ❌
-              </span>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell colSpan={4}>Total de peticiones</TableCell>
-            <TableCell className="text-right flex items-center gap-2 justify-end">
-              {data.length}
-              <span className=" text-2xl">
-                📋
-              </span>
-            </TableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
+      <FooterTable
+        total={info.total}
+        totalPending={info.totalPending}
+        totalTimeOut={info.totalTimeOut}
+      />
     </div>
   );
 }
