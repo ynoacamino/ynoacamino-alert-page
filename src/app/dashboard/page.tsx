@@ -19,7 +19,7 @@ export default function DashboardPage() {
   const [skip, setSkip] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:4000/query/?skip=0')
+    fetch('https://noa-registration-alert-production.up.railway.app/query/?skip=0')
       .then((res) => res.json())
       .then((data) => {
         setQuerys(data.querys?.reverse());

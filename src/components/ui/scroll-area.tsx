@@ -26,7 +26,7 @@ export function ScrollArea(
   const getQuerys = async () => {
     if (divRef.current && divRef.current.scrollTop < 50) {
       try {
-        const data = await fetch(`http://localhost:4000/query/?skip=${skip + 1}`)
+        const data = await fetch(`https://noa-registration-alert-production.up.railway.app/query/?skip=${skip + 1}`)
           .then((res) => res.json()) as {
           querys: Query[], info: { total: number, totalPending: number, totalTimeOut: number }
         };
