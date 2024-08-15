@@ -10,6 +10,7 @@ import { FooterTable } from '@/components/pages/dashboard/FooterTable';
 import { useEffect, useState } from 'react';
 import { BodyTable } from '@/components/pages/dashboard/BodyTable';
 import { SkeletonTable } from '@/components/pages/dashboard/SkeletonTable';
+import { BACKEND_URL } from '@/config/global';
 
 export default function DashboardPage() {
   const [querys, setQuerys] = useState<Query[]>([]);
@@ -19,7 +20,7 @@ export default function DashboardPage() {
   const [skip, setSkip] = useState(0);
 
   useEffect(() => {
-    fetch('https://noa-registration-alert-production.up.railway.app/query/?skip=0')
+    fetch(`${BACKEND_URL}/query?skip=0`)
       .then((res) => res.json())
       .then((data) => {
         setQuerys(data.querys?.reverse());

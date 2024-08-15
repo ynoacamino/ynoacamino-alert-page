@@ -2,6 +2,7 @@
 
 'use client';
 
+import { BACKEND_URL } from '@/config/global';
 import { Query } from '@/types/query';
 import {
   Dispatch, SetStateAction, useEffect, useRef,
@@ -26,7 +27,7 @@ export function ScrollArea(
   const getQuerys = async () => {
     if (divRef.current && divRef.current.scrollTop < 50) {
       try {
-        const data = await fetch(`https://noa-registration-alert-production.up.railway.app/query/?skip=${skip + 1}`)
+        const data = await fetch(`${BACKEND_URL}/query?skip=${skip + 1}`)
           .then((res) => res.json()) as {
           querys: Query[], info: { total: number, totalPending: number, totalTimeOut: number }
         };

@@ -1,3 +1,4 @@
+import { BACKEND_URL } from '@/config/global';
 import { AuthOptions, Session } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -15,14 +16,14 @@ export const authConfig: AuthOptions = {
 
       const userSession = session as Session & { user: { service: any } };
 
-      const mail = await fetch(`https://noa-registration-alert-production.up.railway.app/mail/?address=${userSession.user?.email}`).then((res) => res.json());
+      const mail = await fetch(`${BACKEND_URL}/mail?address=${userSession.user?.email}`).then((res) => res.json());
 
       if (mail.address) {
         userSession.user.service = mail;
         return userSession;
       }
 
-      const newMail = await fetch('https://noa-registration-alert-production.up.railway.app/mail', {
+      const newMail = await fetch(`${BACKEND_URL}/mail`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

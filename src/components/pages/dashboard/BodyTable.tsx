@@ -41,19 +41,19 @@ export function BodyTable({ querys }: { querys: Query[] }) {
             });
             const dateString = date[0].toUpperCase() + date.slice(1);
             const statusStrings = {
-              [QueryStatus.PENDING]: 'No disponible',
+              [QueryStatus.NOT_AVAILABLE]: 'No disponible',
               [QueryStatus.TIMEOUT]: 'Fallido',
-              [QueryStatus.AVARILABLE]: 'Disponible',
+              [QueryStatus.AVAILABLE]: 'Disponible',
             };
 
             const mesageString = {
-              [QueryStatus.PENDING]: 'Aun no esta disponible el talon de pago',
+              [QueryStatus.NOT_AVAILABLE]: 'Aun no esta disponible el talon de pago',
               [QueryStatus.TIMEOUT]: 'La pagina tarde mucho en responder',
-              [QueryStatus.AVARILABLE]: 'Ya esta disponible el talon de pago',
+              [QueryStatus.AVAILABLE]: 'Ya esta disponible el talon de pago',
             };
 
             let statusEmoji;
-            if (status === QueryStatus.PENDING) {
+            if (status === QueryStatus.NOT_AVAILABLE) {
               statusEmoji = '⌛';
             } else if (status === QueryStatus.TIMEOUT) {
               statusEmoji = '❌';
@@ -64,9 +64,9 @@ export function BodyTable({ querys }: { querys: Query[] }) {
               <TableRow key={crypto.randomUUID()}>
                 <TableCell className="w-[20px]">
                   <div className={cn('w-2 h-7', {
-                    'bg-yellow-300': status === QueryStatus.PENDING,
+                    'bg-yellow-300': status === QueryStatus.NOT_AVAILABLE,
                     'bg-red-500': status === QueryStatus.TIMEOUT,
-                    'bg-green-500': status === QueryStatus.AVARILABLE,
+                    'bg-green-500': status === QueryStatus.AVAILABLE,
                   })}
                   />
                 </TableCell>

@@ -64,7 +64,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased flex flex-col w-full overflow-',
+          'min-h-screen bg-background font-sans antialiased flex flex-col w-full overflow-x-hidden',
           fontSans.variable,
         )}
         style={{ scrollbarGutter: 'stable' }}
