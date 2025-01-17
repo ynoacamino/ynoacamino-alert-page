@@ -1,1 +1,1 @@
-export const BACKEND_URL = 'https://ynoa-alert-production.up.railway.app';
+export const BACKEND_URL = 'https://alert-server.ynoacamino.site';
