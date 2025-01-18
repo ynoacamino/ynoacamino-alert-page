@@ -16,15 +16,12 @@ export const authConfig: AuthOptions = {
 
       const userSession = session as Session & { user: { service: any } };
 
-      console.log('1', userSession.user?.email);
       const mail = await fetch(`${BACKEND_URL}/mail?address=${userSession.user?.email}`).then((res) => res.json());
 
       if (mail.address) {
         userSession.user.service = mail;
         return userSession;
       }
-
-      console.log(userSession.user?.email);
 
       const newMail = await fetch(`${BACKEND_URL}/mail`, {
         method: 'POST',
