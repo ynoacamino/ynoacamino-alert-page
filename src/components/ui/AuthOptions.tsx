@@ -8,14 +8,18 @@ import { BACKEND_URL } from '@/config/global';
 import { Button } from './button';
 import { Switch } from './switch';
 
-export function AuthOptions({ session }: { session: Session & { user: { service: any } } }) {
-  const [activeEmail, setActiveEmail] = useState<boolean>(Boolean(session.user.service.active));
-  const [disabledEmail, setDisabledEmail] = useState<boolean>(false);
-
-  const [activeWhatsapp, setActiveWhatsapp] = useState<boolean>(false);
+export function AuthOptions({
+  session,
+}: {
+  session: Session & { user: { service: any } };
+}) {
+  const [activeEmail, setActiveEmail] = useState<boolean>(
+    Boolean(session.user.service.active),
+  );
+  const [disabledEmailSwitch, setDisabledEmailSwitch] = useState<boolean>(false);
 
   const handleActive = async () => {
-    setDisabledEmail(true);
+    setDisabledEmailSwitch(true);
 
     const data = await fetch(`${BACKEND_URL}/mail/`, {
       method: 'PUT',
@@ -28,7 +32,7 @@ export function AuthOptions({ session }: { session: Session & { user: { service:
       }),
     }).then((res) => res.json());
 
-    setDisabledEmail(false);
+    setDisabledEmailSwitch(false);
     if (data.error) {
       // eslint-disable-next-line no-console
       console.error(data.error);
@@ -44,27 +48,22 @@ export function AuthOptions({ session }: { session: Session & { user: { service:
         variant="ghost"
         className="text-base w-full flex justify-between"
         onClick={handleActive}
-        disabled={disabledEmail}
+        disabled={disabledEmailSwitch}
       >
         Recibir Email
-        <Switch
-          disabled={disabledEmail}
-          checked={activeEmail}
-        />
+        <Switch disabled={disabledEmailSwitch} checked={activeEmail} />
+      </Button>
+      <Button variant="ghost" className="text-base w-full flex justify-between">
+        Recibir Whatsapp
+        <Switch checked={false} disabled />
       </Button>
       <Button
         variant="ghost"
-        className="text-base w-full flex justify-between"
-        onClick={() => setActiveWhatsapp(!activeWhatsapp)}
+        className="text-base w-full flex"
+        onClick={() => signOut()}
       >
-        Recibir Whatsapp
-        <Switch checked={activeWhatsapp} />
-      </Button>
-      <Button variant="ghost" className="text-base w-full flex" onClick={() => signOut()}>
         <LogOut />
-        <span className="flex-1 w-full">
-          Cerrar Sesion
-        </span>
+        <span className="flex-1 w-full">Cerrar Sesion</span>
       </Button>
     </div>
   );
