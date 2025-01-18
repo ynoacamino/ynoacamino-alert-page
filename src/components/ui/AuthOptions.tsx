@@ -21,7 +21,7 @@ export function AuthOptions({
   const handleActive = async () => {
     setDisabledEmailSwitch(true);
 
-    const data = await fetch(`${BACKEND_URL}/mail/`, {
+    const data = await fetch(`${BACKEND_URL}/mail`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
