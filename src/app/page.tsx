@@ -4,6 +4,7 @@ import { WhatsappChat } from '@/components/icons/WhatsappChat';
 import { Presentation } from '@/components/pages/index/Presentation';
 import { Section } from '@/components/pages/index/Section';
 import { Button } from '@/components/ui/button';
+import { LinkComponent } from '@/components/ui/LinkComponent';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,7 +17,7 @@ export default function Home() {
         title="Mantente informado por Discord"
         text="Unete a nuestro servidor de discord para mantenerte informado sobre el proceso de tu carrera profesional, te etiquetaremos cuando el talon de pago este disponible"
       >
-        <Link href="https://discord.gg/JdRDaEwvNY">
+        <Link href="https://discord.gg/JdRDaEwvNY" className="hover:scale-105 transition-transform">
           <span className="sr-only">
             Link del servidor de discord
           </span>
@@ -28,6 +29,11 @@ export default function Home() {
             className="w-full max-w-lg aspect-square rounded-lg"
           />
         </Link>
+        <LinkComponent href="https://discord.gg/JdRDaEwvNY">
+          <span className="text-zinc-600 hover:text-zinc-800 underline">
+            ¡Click para unierte!
+          </span>
+        </LinkComponent>
       </Section>
       <Section
         title="Recibe una alerta"
