@@ -31,7 +31,7 @@ src/
 ![Estructura del Proyecto](https://ynoa-uploader.ynoacamino.site/uploads/1738105025_Untitled-2024-11-30-1525%20%283%29.png)
 
 ## 📷 Capturas de pantalla
-
+![Página de Inicio](https://ynoa-uploader.ynoacamino.site/uploads/1738192518_image%20%282%29.png)
 
 ## 🛠 Instalación y Configuración
 
