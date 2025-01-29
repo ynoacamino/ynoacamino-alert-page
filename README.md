@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📌 Alerta UNSA de Talón de Pago
 
-## Getting Started
+Este proyecto es una aplicación web que notifica a los usuarios cuando su **talón de pago** de la Universidad Nacional de San Agustín (UNSA) está disponible. Se envían notificaciones a través de correo electrónico y WhatsApp. La aplicación también muestra el estado de las consultas realizadas en un **dashboard**.
 
-First, run the development server:
+## 🚀 Tecnologías Utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Frontend**: [Next.js](https://nextjs.org/), TypeScript, Tailwind CSS
+- **Autenticación**: [NextAuth.js](https://next-auth.js.org/)
+- **Estado y Temas**: Context API, `next-themes`
+- **UI Components**: Lucide-react, Tailwind Merge, clsx
+- **Manejo de Progreso**: `next-nprogress-bar`
+
+## 📂 Estructura del Proyecto
+
+```
+src/
+│── components/
+│   ├── global/        # Componentes globales como NavBarMobile
+│   ├── pages/
+│   │   ├── dashboard/ # Componentes de la tabla de estado de consultas
+│   │   ├── index/     # Componentes de la página principal
+│   ├── providers/     # Proveedores de autenticación, temas y barra de progreso
+│── config/
+│   ├── global.tsx     # Configuración global (ej. URL del backend)
+│── lib/
+│   ├── utils.ts       # Función utilitaria para clases CSS
+│── types/
+│   ├── query.ts       # Tipos de datos para consultas
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Estructura del Proyecto](https://ynoa-uploader.ynoacamino.site/uploads/1738105025_Untitled-2024-11-30-1525%20%283%29.png)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📷 Capturas de pantalla
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## 🛠 Instalación y Configuración
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clonar el repositorio:**
+   ```sh
+   git clone https://github.com/ynoacamino/ynoacamino-alert-page.git
+   cd ynoacamino-alert-page
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Instalar dependencias:**
+   ```sh
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. **Configurar variables de entorno:**
+   Crea un archivo `.env.local` y agrega las siguientes variables:
+   ```
+   NEXT_PUBLIC_BACKEND_URL=https://alert-server.ynoacamino.site
+   ```
 
-## Deploy on Vercel
+4. **Ejecutar el proyecto en desarrollo:**
+   ```sh
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📌 Funcionalidades Principales
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 🔹 Navbar Móvil (`NavBarMobile.tsx`)
+- Menú lateral responsive con opciones de navegación.
+- Soporta cambio de tema (`ThemeToggleMobile`).
+- Se cierra al presionar `Escape` o hacer clic fuera del menú.
+
+### 🔹 Dashboard (`BodyTable.tsx`, `HeaderTable.tsx`, `FooterTable.tsx`, `SkeletonTable.tsx`)
+- Muestra el estado de consultas sobre el talón de pago.
+- Usa `Tooltip` para mostrar fechas en formatos detallados.
+- Estados visuales con colores e iconos:
+  - ⌛ Pendiente
+  - ❌ Fallido
+  - ✅ Disponible
+
+### 🔹 Página de Inicio (`Presentation.tsx`)
+- Explica el propósito del sistema.
+- Permite registro con Google mediante `next-auth`.
+
+### 🔹 Proveedores (`AuthProvider.tsx`, `ProgressBarProvider.tsx`, `ThemeProvider.tsx`)
+- Manejo de sesión con `SessionProvider`.
+- Barra de progreso para mejorar la UX.
+- Cambio de tema con `next-themes`.
+
+## 🔗 Contribución
+1. Realiza un `fork` del repositorio.
+2. Crea una nueva rama: `git checkout -b feature-nueva-funcionalidad`
+3. Realiza cambios y haz `commit`: `git commit -m "Añadir nueva funcionalidad"`
+4. Envía un `pull request`.

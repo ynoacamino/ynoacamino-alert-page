@@ -47,9 +47,9 @@ export function BodyTable({ querys }: { querys: Query[] }) {
             };
 
             const mesageString = {
-              [QueryStatus.NOT_AVAILABLE]: 'Aun no esta disponible el talon de pago',
-              [QueryStatus.TIMEOUT]: 'La pagina tarde mucho en responder',
-              [QueryStatus.AVAILABLE]: 'Ya esta disponible el talon de pago',
+              [QueryStatus.NOT_AVAILABLE]: 'Aún no está disponible el talón de pago',
+              [QueryStatus.TIMEOUT]: 'La página tardó mucho en cargar.',
+              [QueryStatus.AVAILABLE]: 'Ya está disponible el talón de pago',
             };
 
             let statusEmoji;
